@@ -26,10 +26,7 @@ If you have any suggestions or questions don't heisitate to message me!
 - [x] Add bot about me on Discord to make bot more intuitive to access
 - [ ] Allow add to server button on Discord to make bot addition easy
 - [ ] Allow bot customization depending on server preferences (This will take a while)
-- [ ] Ping command actually displays latency instead of 0ms
-- [ ] Command prefixes completely dependent on .env file so no need to manually change
-- [ ] Proper timeout of albums command embed
-- [ ] Proper mobile formatting of albums command embed
+- [ ] Proper mobile formatting of album command embed
 - [ ] Individual song information in embed format with youtube links (learn command)
 - [ ] Music queue
 - [ ] Bug extermination
