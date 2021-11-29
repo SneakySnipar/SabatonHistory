@@ -1,10 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 from nextcord.errors import Forbidden
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+import vardata
 
 
 async def send_embed(ctx, embed):
@@ -28,10 +25,10 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx, *input):
         """Shows all modules of the bot"""
-        prefix = os.getenv('COMMANDPREFIX')
-        version = os.getenv('VERSION')
-        owner = os.getenv('AUTHOR')
-        github = os.getenv('GITHUB')
+        prefix = vardata.COMMANDPREFIX
+        version = vardata.VERSION
+        author = vardata.AUTHOR
+        github = vardata.GITHUB
 
         if not input:
             emb = nextcord.Embed(title='Commands and modules', color=nextcord.Color.blue(),
@@ -59,7 +56,7 @@ class Help(commands.Cog):
                 emb.add_field(name='Not belonging to a module', value=commands_desc, inline=False)
 
             # setting information about author
-            emb.add_field(name="About", value=f"""This bot is developed and maintained by {owner}\n\
+            emb.add_field(name="About", value=f"""This bot is developed and maintained by {author}\n\
             Coded based on the nextcord.py API\nPlease visit {github} to submit ideas or bugs.""")
             emb.set_footer(text=f"This bot is currently on version {version}.")
 
@@ -101,7 +98,7 @@ class Help(commands.Cog):
             emb = nextcord.Embed(title="It's a magical place.",
                                  description="I don't know how you got here. But I didn't see this coming at all.\n"
                                              "Would you please be so kind to report that issue to me on github?\n"
-                                             "(githubplaceholder)\n"
+                                             f"{github}\n"
                                              "Thank you! -Sneaky",
                                  color=nextcord.Color.red())
 

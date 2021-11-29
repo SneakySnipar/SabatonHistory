@@ -11,7 +11,8 @@ class MusicPlayer(commands.Cog, name="Music"):
     # Music Player Section
     @commands.command()
     async def play(self, ctx, url):
-        """Queues up a song and has the bot join a channel, format: //play (url)"""
+        """Queues up a song and has the bot join a channel, format: play (url)"""
+
         if ctx.author.voice is None:
             await ctx.send('You are not currently connected to a voice channel')
         voice_channel = ctx.author.voice.channel
@@ -25,7 +26,13 @@ class MusicPlayer(commands.Cog, name="Music"):
         ffmpeg_options = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5',
                           'options': '-vn'
                           }
-        ydl_options = {'format': 'bestaudio'}
+        ydl_options = {'format': 'bestaudio/best',
+                       'postprocessors': [{
+                           'key': 'FFmpegExtractAudio',
+                           'preferredcodec': 'mp3',
+                           'preferredquality': '192',
+                       }]
+                       }
 
         with youtube_dl.YoutubeDL(ydl_options) as ydl:
             info = ydl.extract_info(url, download=False)
@@ -47,7 +54,6 @@ class MusicPlayer(commands.Cog, name="Music"):
         """Pauses the current song"""
         await ctx.send('Music has been paused.')
         await ctx.voice_client.pause()
-
 
     @commands.command()
     async def resume(self, ctx):

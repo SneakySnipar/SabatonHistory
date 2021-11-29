@@ -198,10 +198,10 @@ class Album(commands.Cog, name="Albums"):
                                                          user: user == ctx.author and reaction.emoji in reactions,
                                                          timeout=60.0)
             except asyncio.TimeoutError:
-
                 embed = embed_pages[current]
-                embed.set_footer(text='Timed Out.')
+                embed.set_footer(text='Message timed out')
                 await msg.clear_reactions()
+                await msg.edit(embed=embed)
             else:
                 previous_page = current
 

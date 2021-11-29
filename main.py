@@ -1,11 +1,13 @@
 import os
 from dotenv import load_dotenv
 from nextcord.ext import commands
+import vardata
 
 load_dotenv()
 
 # Define the bot
-client = commands.Bot(command_prefix=os.getenv('COMMANDPREFIX'))  # Command prefix is //
+command_prefix = vardata.COMMANDPREFIX  # Importing command prefix from variables file
+client = commands.Bot(command_prefix=command_prefix)  # Setting bot's command prefix
 client.remove_command('help')
 
 
@@ -27,7 +29,6 @@ async def on_message(message):
     elif message.author.bot:
         return
     elif client.user.mentioned_in(message) and message.mention_everyone is False:
-        command_prefix = os.getenv('COMMANDPREFIX')
         await message.reply(f'You can access my commands with {command_prefix}help')
     await client.process_commands(message)
 
